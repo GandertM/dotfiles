@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doublecmd>
+  <History>
+    <Navigation>
+      <Item>/home/kanter/.dotfiles/doublecmd/.config/</Item>
+      <Item>/home/kanter/.dotfiles/doublecmd/.config/doublecmd/</Item>
+      <Item>/home/kanter/.config/doublecmd/</Item>
+      <Item>/home/kanter/.config/</Item>
+      <Item>/home/kanter/</Item>
+      <Item>/home/kanter/myrepos/</Item>
+      <Item>/home/kanter/myrepos/postinstall/</Item>
+      <Item>/home/kanter/.dotfiles/doublecmd/</Item>
+      <Item>/home/kanter/.dotfiles/</Item>
+      <Item>/home/kanter/myrepos/preseeded/</Item>
+      <Item>/home/kanter/myrepos/postinstall/apps/</Item>
+      <Item>/home/kanter/myrepos/postinstall/prereqs/</Item>
+      <Item>/home/kanter/myrepos/postinstall/flatpaks/</Item>
+      <Item>/home/kanter/notes/</Item>
+      <Item>/home/kanter/notes/.Trash-1027/</Item>
+      <Item>/home/kanter/notes/.Trash-1027/files/</Item>
+      <Item>/home/kanter/notes/beheer/</Item>
+      <Item>/home/kanter/notes/beheer/journals/</Item>
+      <Item>/home/kanter/notes/beheer/assets/</Item>
+      <Item>/home/kanter/notes/scholing/</Item>
+      <Item>/home/kanter/notes/scholing/journals/</Item>
+      <Item>/home/kanter/notes/scholing/logseq/</Item>
+      <Item>/home/kanter/notes/scholing/pages/</Item>
+      <Item>/mnt/nas/film/Series/Defiance/Season 2 (2014)/</Item>
+      <Item>/mnt/nas/film/Series/Defiance/</Item>
+      <Item>/mnt/nas/film/Series/</Item>
+      <Item>/mnt/nas/homenas/Notities/Notes/</Item>
+      <Item>/mnt/nas/homenas/Notities/Notes/Command-line/</Item>
+      <Item>/mnt/nas/homenas/Notities/Notes/Debian/</Item>
+      <Item>/mnt/nas/homenas/Notities/</Item>
+      <Item>/mnt/nas/homenas/</Item>
+      <Item>/mnt/nas/</Item>
+      <Item>/home/kanter/Downloads/</Item>
+      <Item>/home/kanter/Videos/youtube/Linux/Bash/</Item>
+      <Item>/home/kanter/Videos/youtube/Linux/</Item>
+      <Item>/home/kanter/Videos/youtube/Linux/stow/</Item>
+      <Item>/home/kanter/Videos/youtube/Linux/zoxide/</Item>
+      <Item>/mnt/nas/downloads/</Item>
+      <Item>/home/kanter/Documents/</Item>
+      <Item>/home/kanter/Videos/youtube/Linux/zsh/</Item>
+      <Item>/home/kanter/Videos/youtube/</Item>
+      <Item>/home/kanter/Videos/</Item>
+      <Item>/home/kanter/.local/</Item>
+      <Item>/home/kanter/.local/share/</Item>
+      <Item>/home/kanter/.local/bin/</Item>
+      <Item>/home/kanter/.local/share/zinit/</Item>
+      <Item>/home/kanter/.local/share/zoxide/</Item>
+      <Item>/home/kanter/.fzf/</Item>
+      <Item>/home/kanter/.fzf/bin/</Item>
+      <Item>/etc/</Item>
+      <Item>/</Item>
+    </Navigation>
+    <CommandLine>
+      <Item>cd /usr/share/desktop-base/active-theme/grub</Item>
+    </CommandLine>
+    <FileMask>
+      <Item>xxx*.*</Item>
+      <Item>*</Item>
+      <Item>command</Item>
+      <Item>*.csv</Item>
+      <Item>*.sql</Item>
+      <Item>*.*</Item>
+    </FileMask>
+    <SearchText>
+      <Item Tag="0">lieger</Item>
+      <Item Tag="0">fla</Item>
+      <Item Tag="0">flat</Item>
+      <Item Tag="0">fnd_lookup</Item>
+      <Item Tag="0">fnd_lookups</Item>
+      <Item Tag="0">FND_concurrent_programs</Item>
+      <Item Tag="0">document</Item>
+      <Item Tag="0">ar_approval_user_limits</Item>
+    </SearchText>
+    <SearchTextPath/>
+    <ReplaceText/>
+    <ReplaceTextPath/>
+    <CreateDirectories>
+      <Item>stow</Item>
+      <Item>zoxide</Item>
+      <Item>zsh</Item>
+      <Item>Oom Bill</Item>
+      <Item>Oom Cor</Item>
+      <Item>Bash scripting</Item>
+      <Item>APEX course B</Item>
+      <Item>Git</Item>
+      <Item>Git for Beginners course</Item>
+      <Item>Bash</Item>
+      <Item>Bash shortcuts</Item>
+      <Item>Bash for Beginners course 2</Item>
+      <Item>Troubleshooting course</Item>
+      <Item>Bash for Beginners course</Item>
+      <Item>CTT</Item>
+      <Item>grub</Item>
+      <Item>processed</Item>
+      <Item>troubleshooting</Item>
+      <Item>APEX</Item>
+      <Item>git</Item>
+    </CreateDirectories>
+    <RenameNameMask>
+      <Item>Eneco-[N]</Item>
+      <Item>2024-04-29-[N]</Item>
+      <Item>[N]</Item>
+      <Item>ASN - Beleggingsoverzicht 2023-[N]</Item>
+    </RenameNameMask>
+    <RenameExtMask>
+      <Item>[E]</Item>
+    </RenameExtMask>
+    <SearchDirectories>
+      <Item>/mnt/nas/homenas/</Item>
+      <Item>/mnt/nas/homenas/_GEORDEND/</Item>
+      <Item>/home/kanter/Documents/</Item>
+      <Item>/home/kanter/Downloads/omakub-master.zip</Item>
+      <Item>/mnt/nas/homewrk/00-klantarchief/2017 - KWF/</Item>
+      <Item>/mnt/nas/homewrk/</Item>
+    </SearchDirectories>
+    <SearchExcludeFiles/>
+    <SearchExcludeDirectories/>
+  </History>
+</doublecmd>

@@ -1,0 +1,153 @@
+# ~/.config/starship.toml
+#
+# build with Nerd font: Hack Nerd
+#
+
+# Use custom format
+format = '''
+[┌──────≻](bold blue) $username [on](bold white) $hostname : $directory $git_branch $git_status $combined [≺](bold blue)$fill[≻](bold blue) $time
+[└──≻](bold blue) $character'''
+
+# Use custom format
+#format = '''
+#[┌──────≻](bold blue) $username [on](bold white) $hostname : $directory $git_branch $git_status [≺](bold blue)$fill[≻]#(bold blue) $time
+#[└───≻](bold blue) $character'''
+
+
+#┏╸╸╸╸╸≻🠞
+#┗
+
+#╔══════⇒≻⟹🠞
+#╚═══
+
+# Use custom format
+#format = '''
+#[┌───────────────────>](bold green)
+#[│](bold green)$directory$rust$package
+#[└─>](bold green) '''
+
+
+
+#format = """
+#$username\
+#[](fg:#3b4252 bg:#4e5463)\
+#$hostname\
+#[](fg:#4e5463 bg:#626774)\
+#$localip\
+#[](fg:#626774 bg:#757a85)\
+#$directory\
+#[](fg:#757a85 bg:#898d97)\
+#$git_branch\
+#[](fg:#898d97 bg:#9da0a8)\
+#$git_status\
+#[](fg:#9da0a8)\
+#$fill\
+#[](fg:#c4c6cb)\
+#$cmd_duration\
+#[](fg:#d7d9dc bg:#c4c6cb)\
+#$jobs\
+#[](fg:#ebeced bg:#d7d9dc)\
+#$time\
+#$line_break\
+#$shell\
+#$character"""
+
+# color order based on 3b4252
+# https://www.color-hex.com/color/3b4252
+#3b4252 = username
+#4e5463 = hostname
+#626774 = localip
+#757a85 = directory
+#898d97 = git_branch
+#9da0a8 = git_status
+#b0b3b9 = fill
+#c4c6cb = cmd_duration
+#d7d9dc = jobs
+#ebeced = time
+#ffffff = not used
+
+command_timeout = 5000
+# Disable the blank line at the start of the prompt
+# add_newline = false
+
+# You can also replace your username with a neat symbol like  to save some space
+[username]
+show_always = true
+#style_user = "bg:#3b4252"
+#style_root = "bg:#3b4252"
+style_user = "yellow bold"
+style_root = "red bold"
+format = "[$user]($style)"
+
+[hostname]
+#style = "bg:#4e5463"
+style = "bold yellow"
+ssh_only = false
+format = "[$hostname]($style)"
+trim_at = ".companyname.com"
+disabled = false
+
+[localip]
+ssh_only = false
+style = "bg:#626774"
+format = '[ $localipv4 ]($style)'
+disabled = false
+
+[directory]
+#style = "bg:#757a85"
+style = "bold yellow"
+format = "[$path]($style)"
+truncation_length = 3
+truncation_symbol = ".../"
+
+[git_branch]
+symbol = ""
+#style = "bg:#898d97"
+style = "bold white"
+format = '[$symbol $branch]($style)'
+
+[git_status]
+#style = "bg:#9da0a8"
+style = "bold white"
+format = '[$all_status $ahead_behind]($style)'
+
+#[combined]
+#style = "bold red"
+#format = '[$symbol $git_branch $all_status $ahead_behind]'
+
+[fill]
+symbol = "─"
+#style = "bg:#b0b3b9"
+style = "bold blue"
+
+[cmd_duration]
+style = "fg:#4e5463 bg:#c4c6cb"
+format = "[ $duration ]($style)"
+
+[jobs]
+symbol = ""
+number_threshold = 1
+style = "fg:#3b4252 bg:#d7d9dc"
+format = "[ $symbol ]($style)"
+
+[time]
+disabled = false
+time_format = "%T"
+#style = "fg:#3b4252 bg:#ebeced"
+style = "bold white"
+format = '[$time]($style) '
+
+[shell]
+#fish_indicator = '󰈺 '
+#powershell_indicator = '_'
+unknown_indicator = 'mystery shell'
+style = 'cyan bold'
+disabled = false
+
+[character]
+#success_symbol = "[➜](bold green)"
+#success_symbol = "[](bold green)"
+success_symbol = "[](bold white)"
+error_symbol = "[✗](bold red)"
+vicmd_symbol = "[❮](green)"
+
