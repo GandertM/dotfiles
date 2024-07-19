@@ -87,7 +87,7 @@ skin=yadt256
 
 [Layout]
 output_lines=0
-left_panel_size=127
+left_panel_size=66
 top_panel_size=0
 message_visible=true
 keybar_visible=true

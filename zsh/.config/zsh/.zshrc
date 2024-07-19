@@ -65,7 +65,7 @@ bindkey '^[w' kill-region             # alt-w  : kill from the cursor to the mar
 
 # History
 HISTSIZE=25000
-HISTFILE=~/.zsh_history
+HISTFILE=~/.config/zsh/.zsh_history
 SAVEHIST=$HISTSIZE
 HISTDUP=erase
 setopt appendhistory
