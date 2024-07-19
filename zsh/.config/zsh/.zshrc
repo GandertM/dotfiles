@@ -65,7 +65,7 @@ bindkey '^[w' kill-region             # alt-w  : kill from the cursor to the mar
 
 # History
 HISTSIZE=25000
-HISTFILE=~/.config/zsh/.zsh_history
+HISTFILE=$ZDOTDIR/.zsh_history
 SAVEHIST=$HISTSIZE
 HISTDUP=erase
 setopt appendhistory
@@ -90,7 +90,7 @@ ZSH_HIGHLIGHT_STYLES[precommand]=fg=blue,underline
 ZSH_HIGHLIGHT_STYLES[arg0]=fg=blue
 
 # Aliases
-[[ -f ~/.zsh_aliases ]] && source ~/.zsh_aliases
+[[ -f "$ZDOTDIR"/.zsh_aliases ]] && source "$ZDOTDIR"/.zsh_aliases
 
 # Shell integrations
 eval "$(fzf --zsh)"                    # option --zsh only works in 0.48.0 or later (add fzf to PATH)
