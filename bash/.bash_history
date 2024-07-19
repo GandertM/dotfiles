@@ -321,3 +321,10 @@ cd .dotfiles/
 stow .
 cd ..
 la
+cd .dotfiles/
+la
+stow zsh
+pwd
+which kompare
+cd .dotfiles
+stow starship
