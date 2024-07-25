@@ -41,6 +41,7 @@ zinit light Aloxaf/fzf-tab
 # Add in snippets
 zinit snippet OMZP::git
 zinit snippet OMZP::sudo
+zinit snippet OMZP::colored-man-pages
 #zinit snippet OMZP::archlinux
 #zinit snippet OMZP::aws
 #zinit snippet OMZP::kubectl
@@ -59,8 +60,8 @@ zinit cdreplay -q
 
 # Keybindings
 bindkey -e                            # emacs keybindings
-bindkey '^p' history-search-backward  # ctrl-p : search history backward
-bindkey '^n' history-search-forward   # ctrl-n : search history forward
+bindkey '^p' history-search-backward  # ctrl-p : search history backward (p = previous)
+bindkey '^n' history-search-forward   # ctrl-n : search history forward (n = next)
 bindkey '^[w' kill-region             # alt-w  : kill from the cursor to the mark
 
 # History

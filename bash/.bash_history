@@ -328,3 +328,23 @@ pwd
 which kompare
 cd .dotfiles
 stow starship
+cd .dotfiles/
+stow zsh
+cd ..
+exit
+echo $XDG_CONFIG_HOME
+echo $ZDOTDIR
+touch .zshenv
+bat .zshenv 
+exit
+s
+la
+ll
+exit
+exit
+./DB\ -\ version\ information.sql
+./Documents\ ID\'s.txt
+OC
+echo $SHELL
+ls -al
+ll
