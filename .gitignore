@@ -1,3 +1,5 @@
+.bash_history
 .zcompdump
+.zsh_history
 .zshrc.*
 *.cache
