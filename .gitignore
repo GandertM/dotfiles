@@ -1,0 +1,7 @@
+.bash_history
+.zcompdump
+.zshrc.*
+.zsh_history
+*.cache
+bash/.bash_history
+doublecmd/.config/doublecmd/pixmaps.cache
