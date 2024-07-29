@@ -94,6 +94,7 @@ ZSH_HIGHLIGHT_STYLES[arg0]=fg=blue
 [[ -f "$ZDOTDIR"/.zsh_aliases ]] && source "$ZDOTDIR"/.zsh_aliases
 
 # Shell integrations
+# 'source <(fzf --zsh)' is input from fzf itself
 eval "$(fzf --zsh)"                    # option --zsh only works in 0.48.0 or later (add fzf to PATH)
 #[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh  # after install from https://github.com/junegunn/fzf.git
 #eval "$(zoxide init --cmd cd zsh)"
