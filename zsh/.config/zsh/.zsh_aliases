@@ -33,6 +33,7 @@ alias lt="tree -C"
 
 # bat
 alias bat='/usr/bin/batcat'
+alias cat='bat'
 
 # apt to nala
 alias upd="sudo nala update"

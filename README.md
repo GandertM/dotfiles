@@ -19,6 +19,7 @@ sudo apt install curl git wget zsh
 ```
 
 ### for usage
+- bat
 - doublecmd-qt
 - mc
 - nala
