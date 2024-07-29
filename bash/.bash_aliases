@@ -123,4 +123,4 @@ ex ()
 #  if ! cd "$d"; then
 #    echo "Couldn't go up $limit dirs.";
 #  fi
-}
+#}
