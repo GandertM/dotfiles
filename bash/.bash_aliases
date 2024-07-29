@@ -52,15 +52,15 @@ alias jctl="journalctl -p 3 -xb"
 ### functions ###
 
 update() {
-  echo "\n${BLUE}#############################################################${NC}\n"
+  echo -e "\n${BLUE}#############################################################${NC}\n"
   #echo "\033[1;37mUpdate ..." && sudo nala update && sudo nala upgrade
-  echo "Update ...\n" && sudo nala update && sudo nala upgrade
-  echo "\n${BLUE}#############################################################${NC}\n"
-  echo "Flatpak ...\n" && flatpak update
+  echo -e "Update ...\n" && sudo nala update && sudo nala upgrade
+  echo -e "\n${BLUE}#############################################################${NC}\n"
+  echo -e "Flatpak ...\n" && flatpak update
   # echo "Snap ..." && sudo snap refresh
-  echo "\n${BLUE}#############################################################${NC}\n"
-  echo "Zinit ...\n" && zinit self-update && zinit update
-  echo "\n${BLUE}#############################################################${NC}\n"
+  echo -e "\n${BLUE}#############################################################${NC}\n"
+  # echo -e "Zinit ...\n" && zinit self-update && zinit update
+  # echo -e "\n${BLUE}#############################################################${NC}\n"
 }
 
 cheatsh() {
