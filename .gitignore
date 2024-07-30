@@ -3,3 +3,4 @@
 .zsh_history
 .zshrc.*
 *.cache
+.kateproject
