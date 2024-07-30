@@ -1,14 +1,17 @@
 ### personal aliases file ###
 
+
 ### aliases ###
 
 # shell
 alias s="source ~/.bashrc"
 alias c="clear"
 
-# tools
+# general tools
 alias rm="trash -v"
 alias ed="micro"
+
+# monitoring tools
 alias df="df -h -x tmpfs -x squashfs -x devtmpfs -x efivarfs"
 alias extip="curl icanhazip.com"
 alias speedtest="curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python3 -"
@@ -24,6 +27,7 @@ alias l='ls -CF'
 
 # bat
 alias bat='/usr/bin/batcat'
+alias cat='bat'
 
 # apt
 alias upd="sudo apt update"
@@ -47,7 +51,8 @@ alias psmem='ps auxf | sort -nr -k 4'
 alias pscpu='ps auxf | sort -nr -k 3'
 
 # get error messages from journalctl
-alias jctl="journalctl -p 3 -xb"
+alias jctl="sudo journalctl -xb"
+
 
 ### functions ###
 
@@ -104,23 +109,3 @@ ex ()
     echo "'$1' is not a valid file"
   fi
 }
-
-# navigation
-#up () {
-#  local d=""
-#  local limit="$1"
-
-  # Default to limit of 1
-#  if [ -z "$limit" ] || [ "$limit" -le 0 ]; then
-#    limit=1
-#  fi
-
-#  for ((i=1;i<=limit;i++)); do
-#    d="../$d"
-#  done
-
-  # perform cd. Show error if cd fails
-#  if ! cd "$d"; then
-#    echo "Couldn't go up $limit dirs.";
-#  fi
-#}

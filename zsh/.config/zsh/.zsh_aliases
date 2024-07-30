@@ -1,5 +1,6 @@
 ### personal aliases file ###
 
+
 ### colors ###
 
 GREEN="033[1;32m"
@@ -10,13 +11,15 @@ NC="\033[0m"
 
 ### aliases ###
 
-# shell
+# shell handling
 alias s="exec /usr/bin/zsh"
 alias c="clear"
 
-# tools
+# general tools
 alias rm="trash -v"
 alias ed="micro"
+
+# monitoring tools
 alias df="df -h -x tmpfs -x squashfs -x devtmpfs -x efivarfs"
 alias extip="curl icanhazip.com"
 alias speedtest="curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python3 -"
@@ -24,8 +27,7 @@ alias mem5="ps auxf | sort -nr -k 4 | head -5"
 alias cpu5="ps auxf | sort -nr -k 3 | head -5"
 alias ipreset="NIC=$(netstat -r | awk '/default/ {print $NF}' | sort -u | grep -v '^w'); sudo dhclient -r -v $NIC && sudo dhclient -v $NIC"
 
-
-# dropped lsd for ls as lsd is slow
+# ls
 alias ls="ls -h --color=auto --group-directories-first"
 alias ll="ls -l"
 alias la="ls -la"
@@ -57,8 +59,7 @@ alias psmem="ps auxf | sort -nr -k 4"
 alias pscpu="ps auxf | sort -nr -k 3"
 
 # get error messages from journalctl
-alias jctl="journalctl -p 3 -xb"
-
+alias jctl="sudo journalctl -xb"
 
 ### functions ###
 
@@ -73,19 +74,6 @@ update() {
   echo "Zinit ...\n" && zinit self-update && zinit update
   echo "\n${BLUE}#############################################################${NC}\n"
 }
-
-#apt() {
-#  command nala "$@"
-#}
-
-#sudo() {
-#  if [[ "$1" = "apt" ]]; then
-#    shift
-#    command sudo nala "$@"
-#  else
-#    command sudo "$@"
-#  fi
-#}
 
 cheatsh() {
   # Ask cheat.sh website for details about a Linux command.
@@ -128,24 +116,3 @@ ex ()
     echo "'$1' is not a valid file"
   fi
 }
-
-# navigation
-#up () {
-#  local d=""
-#  local limit="$1"
-#
-#  # Default to limit of 1
-#  if [ -z "$limit" ] || [ "$limit" -le 0 ]; then
-#    limit=1
-#  fi
-#
-#  for ((i=1;i<=limit;i++)); do
-#    d="../$d"
-#  done
-#
-#  # perform cd. Show error if cd fails
-#  if ! cd "$d"; then
-#    echo "Couldn't go up $limit dirs.";
-#  fi
-#}
-
