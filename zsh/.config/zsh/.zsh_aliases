@@ -65,8 +65,8 @@ alias jctl="sudo journalctl -xb"
 
 update() { 
   echo "\n${BLUE}#############################################################${NC}\n"
-  #echo "\033[1;37mUpdate ..." && sudo nala update && sudo nala upgrade
-  echo "Update ...\n" && sudo nala update && sudo nala upgrade
+  #echo "\033[1;37mUpdate ..." && sudo nala upgrade
+  echo "Update ...\n" && sudo nala upgrade
   echo "\n${BLUE}#############################################################${NC}\n"
   echo "Flatpak ...\n" && flatpak update
   # echo "Snap ..." && sudo snap refresh
