@@ -1,0 +1,192 @@
+### personal functions file ###
+
+
+### colors ###
+
+RC='\033[0m'
+RED='\033[31m'
+YELLOW='\033[33m'
+CYAN='\033[36m'
+GREEN='\033[32m'
+BLUE='\033[34m'
+
+
+### lines ###
+
+line_blue() {
+  # Drawing horizontal blue line in full width
+  print "${BLUE}"; print -- ${(l:COLUMNS::─:)}; print "${RC}"
+}
+
+
+### texts ###
+
+text_color() {
+  
+  # Print a text ($2) with a color ($1)
+  local input_color=$1
+
+  # Colors
+  case "$input_color" in
+       "Default")      colorString='\033[0;39m';;
+       "Black" )       colorString='\033[0;30m';;
+       "DarkRed" )     colorString='\033[0;31m';;
+       "DarkGreen" )   colorString='\033[0;32m';;
+       "DarkYellow" )  colorString='\033[0;33m';;
+       "DarkBlue" )    colorString='\033[0;34m';;
+       "DarkMagenta" ) colorString='\033[0;35m';;
+       "DarkCyan" )    colorString='\033[0;36m';;
+       "Gray" )        colorString='\033[0;37m';;
+       "DarkGray" )    colorString='\033[1;90m';;
+       "Red" )         colorString='\033[1;91m';;
+       "Green" )       colorString='\033[1;92m';;
+       "Yellow" )      colorString='\033[1;93m';;
+       "Blue" )        colorString='\033[1;94m';;
+       "Magenta" )     colorString='\033[1;95m';;
+       "Cyan" )        colorString='\033[1;96m';;
+       "White" )       colorString='\033[1;97m';;
+       *)              colorString='\033[0;39m';;
+  esac
+
+  # Print the text
+  printf "%b" "${colorString}" "$2" "${RC}\n\n"
+
+}
+
+
+### functions ###
+
+install() {
+
+  printf "%b\n" "${YELLOW}" "### installing... ################################################" "${RC}"
+
+  if [ "$(command -v nala 2>&1)" ]; then
+    printf " %b\n" "${CYAN}" "### ... using nala ###" "${RC}"
+    sudo nala install -v "$1"
+  elif [ "$(command -v apt-get 2>&1)" ]; then
+    printf " %b\n" "${CYAN}" "### ... using apt-get ###" "${RC}"
+    sudo apt-get install -y "$1"
+  elif [ "$(command -v zypper 2>&1)" ]; then
+    printf " %b\n" "${CYAN}" "### ... using zypper ###" "${RC}"
+    sudo zypper install -y "$1"
+  else
+    printf "%b\n" "${RED}" "Can't find a supported package manager" "${RC}"
+  fi
+
+  printf "%b\n" "${GREEN}" "### done #########################################################" "${RC}"
+
+}
+
+
+# Check if package is installed
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+
+update_system() {
+  
+  command_exists nala && sudo nala upgrade || 
+  
+  command_exists apt-get && sudo apt-get update && sudo apt-get upgrade ||
+
+  command_exists zypper && sudo zypper refresh && sudo zypper update ||
+
+  text_color "Red" "Can't find a supported package manager"
+}
+
+
+update() {
+
+  # define timestamp file
+  STAMP_FILE="$HOME/.ts_update.ts"
+  
+  # use interval of 1 week
+  INTERVAL="604800"   
+
+  # if timestamp file does not exist, create it
+  [[ ! -f $STAMP_FILE ]] && touch $STAMP_FILE
+
+  # determine times and delta
+  STAMP="$(date -r $STAMP_FILE +%s 2>/dev/null)"
+  NOW="$(date +%s 2>/dev/null)"
+  DELTA=$(($NOW-$STAMP))
+
+  line_blue
+
+  text_color "Cyan" "UPDATE SYSTEM"
+
+  update_system  
+  
+  line_blue
+  
+  text_color "Cyan" "UPDATE FLATPAK"
+
+  flatpak update
+    
+  line_blue
+  
+  # if time has passed, execute
+  if [ $DELTA -ge $INTERVAL ]; then
+    
+    text_color "Cyan" "UPDATE ZINIT"
+
+    zinit self-update && zinit update
+
+    line_blue
+
+    touch $STAMP_FILE
+
+  fi
+        
+}
+
+
+cheatsh() {
+  # Ask cheat.sh website for details about a Linux command.
+  curl -m 10 "http://cheat.sh/${1}" 2>/dev/null || printf '%s\n' "[ERROR] Something broke"
+}
+
+
+flocate() {
+  # locate file, but exclude snapshots
+  if [ -z "$1" ]
+  then
+    printf "You need to add a search string!"
+  else
+    locate "$1" | grep -vi .snapshots
+  fi
+}
+
+
+# ARCHIVE EXTRACTION
+# usage: ex <file>
+ex ()
+{
+  if [ -f "$1" ] ; then
+    case $1 in
+      *.tar.bz2)   tar xjf "$1"   ;;
+      *.tar.gz)    tar xzf "$1"   ;;
+      *.bz2)       bunzip2 "$1"   ;;
+      *.rar)       unrar x "$1"   ;;
+      *.gz)        gunzip "$1"    ;;
+      *.tar)       tar xf "$1"    ;;
+      *.tbz2)      tar xjf "$1"   ;;
+      *.tgz)       tar xzf "$1"   ;;
+      *.zip)       unzip "$1"     ;;
+      *.Z)         uncompress "$1";;
+      *.7z)        7z x "$1"      ;;
+      *.deb)       ar x "$1"      ;;
+      *.tar.xz)    tar xf "$1"    ;;
+      *.tar.zst)   unzstd "$1"    ;;
+      *)           echo "'$1' cannot be extracted via ex()" ;;
+    esac
+  else
+    printf '..%s..' "This file (" "$1" ") is not a valid one."
+  fi
+}
+
+
+path() {
+  echo "$PATH" | tr ":" "\n" | nl
+}

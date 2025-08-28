@@ -1,0 +1,182 @@
+### personal aliases file ###
+
+
+### colors ###
+
+RC='\033[0m'
+RED='\033[31m'
+YELLOW='\033[33m'
+CYAN='\033[36m'
+GREEN='\033[32m'
+BLUE='\033[34m'
+
+
+### aliases ###
+
+# shell handling
+alias s="exec /usr/bin/zsh"
+alias c="clear"
+
+# general tools
+alias cp="cp -i"
+alias mv="mv -i"
+alias rm="trash -v"
+alias ed="micro"
+alias mkdir="mkdir -p"
+alias ps="ps auxf"
+alias ping="ping -c 5"
+
+# monitoring tools
+alias df="df -h -x tmpfs -x squashfs -x devtmpfs -x efivarfs"
+alias speedtest="curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python3 -"
+alias mem5="ps auxf | sort -nr -k 4 | head -5"
+alias cpu5="ps auxf | sort -nr -k 3 | head -5"
+alias ipreset="NIC=$(netstat -r | awk '/default/ {print $NF}' | sort -u | grep -v '^w'); sudo dhclient -r -v $NIC && sudo dhclient -v $NIC"
+alias ipext="curl icanhazip.com"
+alias openports='sudo ss -tulpn'
+
+# alias chmod commands
+alias mx='chmod a+x'
+alias 000='chmod -R 000'
+alias 644='chmod -R 644'
+alias 666='chmod -R 666'
+alias 755='chmod -R 755'
+alias 777='chmod -R 777'
+
+# Search command line history
+alias h="history | grep "
+
+# Search files in the current folder
+alias f="find . | grep "
+
+# ls
+alias ls="ls -h --color=auto --group-directories-first"
+#alias ll="ls -l"
+#alias la="ls -la"
+#alias lt="tree -C"
+
+##################
+# aliases eza
+##################
+
+# ----------------
+# base
+# ----------------
+alias l="eza --icons --group-directories-first --group --color=always"
+alias ll="eza -hl --icons --group-directories-first --group --color=always"
+
+# ----------------
+# all entries
+# ----------------
+alias la="ll -a"
+
+alias las="la --total-size --sort=size"
+alias lam="la --sort=modified"
+alias lac="la --sort=created"
+
+# ----------------
+# only files
+# ----------------
+alias lf="ll -f"
+
+alias lfs="lf --total-size --sort=size"
+alias lfm="lf --sort=modified"
+alias lfc="lf --sort=created"
+
+# ----------------
+# only directories
+# ----------------
+alias ld="ll -D"
+
+alias lds="ld --total-size --sort=size"
+alias ldm="ld --sort=modified"
+alias ldc="ld --sort=created"
+
+# ----------------
+# only hidden
+# ----------------
+alias lh="ll -dl .*"
+
+alias lhs="lh --total-size --sort=size"
+alias lhm="lh --sort=modified"
+alias lhc="lh --sort=created"
+
+# ----------------
+# only executables
+# ----------------
+alias lx="find . -maxdepth 1 -type f -executable -exec eza -hl --icons --group-directories-first --group --color=always {} +"
+
+alias lxs="find . -maxdepth 1 -type f -executable -exec eza -hl --icons --group-directories-first --group --color=always --sort=size {} +"
+alias lxm="find . -maxdepth 1 -type f -executable -exec eza -hl --icons --group-directories-first --group --color=always --sort=modified {} +"
+alias lxc="find . -maxdepth 1 -type f -executable -exec eza -hl --icons --group-directories-first --group --color=always --sort=created {} +"
+
+# ----------------
+# view tree
+# ----------------
+alias lt="eza -lahT --icons --color=always --group-directories-first --group"
+
+# max depth
+alias lts="lt --total-size --sort=size"
+alias ltm="lt --sort=modified"
+alias ltc="lt --sort=created"
+
+# max depth 2
+alias lt2="lt --level=2"
+alias lts2="lt2 --total-size --sort=size"
+alias ltm2="lt2 --sort=modified"
+alias ltc2="lt2 --sort=created"
+
+# max depth 3
+alias lt3="lt --level=3"
+alias lts3="lt3 --total-size --sort=size"
+alias ltm3="lt3 --sort=modified"
+alias ltc3="lt3 --sort=created"
+
+# ---------------- end of eza
+
+# bat
+#alias bat='/usr/bin/batcat'
+alias cat="/usr/bin/bat --color always"
+
+# apt to nala
+#alias upd="sudo nala update"
+#alias upg="sudo nala update && sudo nala upgrade"
+#alias ins="sudo nala install"
+#alias sea="sudo nala search"
+
+# Colorize grep output (good for log files)
+alias grep="grep --color=auto"
+alias egrep="egrep --color=auto"
+alias fgrep="fgrep --color=auto"
+
+# adding flags
+alias df="df -h"                          # human-readable sizes
+alias free="free -m"                      # show sizes in MB
+
+# ps
+alias psa="ps auxf"
+alias psgrep="ps aux | grep -v grep | grep -i -e VSZ -e"
+alias psmem="ps auxf | sort -nr -k 4"
+alias pscpu="ps auxf | sort -nr -k 3"
+
+# get error messages from journalctl
+alias jctl="sudo journalctl -xb"
+
+# Alias's for chezmoi
+alias cmdoc="chezmoi doctor"
+alias cmini="chezmoi init"
+alias cmadd="chezmoi add"
+alias cmrea="chezmoi re-add"
+alias cmedi="chezmoi edit"
+alias cmeda="chezmoi edit --apply"
+alias cmsta="chezmoi status"
+alias cmdif="chezmoi diff"
+alias cmapp="chezmoi -v apply"
+alias cmcd="chezmoi cd"
+alias cmupd="chezmoi update"
+alias cmfor="chezmoi forget"
+
+# Alias's for git
+alias ga='git add'
+alias gcm='git commit -m "$1"'
+alias gp='git push -u origin main'
