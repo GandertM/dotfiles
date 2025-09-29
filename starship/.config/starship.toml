@@ -1,336 +1,124 @@
-#add_newline = false
-command_timeout = 1000
-format = "[](surface1)$os[](bg:surface2 fg:surface1)$username$sudo[](bg:overlay0 fg:surface2)$hostname[](bg:mauve fg:overlay0)$directory[](fg:mauve bg:peach)$c$dart$dotnet$elixir$elm$erlang$golang$haskell$haxe$java$julia$kotlin$lua$nim$nodejs$rlang$ruby$rust$perl$php$python$scala$swift$zig$package$git_branch[](fg:peach bg:yellow)$git_status[](fg:yellow bg:teal)$container$direnv$nix_shell$cmd_duration$jobs$shlvl$status$character"
-palette = "catppuccin_mocha"
+# Get editor completions base3 on the config schema
+"$schema" = "https://starship.rs/config-schema.json"
 
-[c]
-format = "[ $symbol]($style)"
-style = "fg:base bg:peach"
-symbol = ""
+format = """
+[](fg:base0)$username[](fg:base0 bg:base1)$hostname[](fg:base1 bg:base2)$directory\
+[](fg:base2 bg:base3)$git_branch[](fg:base3 bg:base4)$git_status[](fg:base4)\
+$fill\
+[](fg:base4)$sudo\
+[](fg:base3 bg:base4)\
+$cmd_duration\
+[](fg:base2 bg:base3)\
+$jobs\
+[](fg:base1 bg:base2)\
+$shell\
+[](fg:base0 bg:base1)\
+$time\
+[](fg:base0)\
+$line_break\
+$status\
+$character"""
+
+# Inserts a blank line between shell prompts
+add_newline = true
+
+# color palette
+palette = "gandert"
 
 [character]
 disabled = false
-error_symbol = "(fg:red bg:pink)[](fg:pink) "
+success_symbol = "[ ❯](green) "
+error_symbol = "[ ❌](bold red) "
 format = "$symbol"
-success_symbol = "[](fg:blue) "
 
 [cmd_duration]
-format = "[  $duration]($style)"
 min_time = 2500
-min_time_to_notify = 60000
 show_notifications = false
-style = "fg:base bg:teal"
-
-[container]
-format = "[ $symbol $name]($style)"
-style = "fg:base bg:teal"
-symbol = "󱋩"
-
-[dart]
-format = "[ $symbol]($style)"
-style = "fg:base bg:peach"
-symbol = ""
+format = "[  $duration ]($style)"
+style = "fg:text0 bg:base3"
 
 [directory]
-format = "[ $path]($style)[$read_only]($read_only_style)"
-home_symbol = ""
-read_only = " 󰈈"
-read_only_style = "bold fg:crust bg:mauve"
-style = "fg:base bg:mauve"
+truncate_to_repo = false
 truncation_length = 3
 truncation_symbol = "…/"
+home_symbol = "~"
+read_only = "󰈈 "
+#read_only_style = "bg:base1"
+format = "[ $path $read_only]($style)"
+style = "fg:text0 bg:base2"
 
-[directory.substitutions]
-Apps = "󰵆"
-Audio = ""
-Crypt = "󰌾"
-Desktop = ""
-Development = ""
-Documents = "󰈙"
-Downloads = "󰉍"
-Dropbox = ""
-Games = "󰊴"
-Keybase = "󰯄"
-Music = "󰎄"
-Pictures = ""
-Public = ""
-Quickemu = ""
-Studio = "󰡇"
-Vaults = "󰌿"
-Videos = ""
-Volatile = "󱪃"
-Websites = "󰖟"
-Zero = "󰎡"
-nix-config = "󱄅"
-
-[direnv]
-allowed_msg = ""
-denied_msg = ""
-disabled = false
-format = "[ $loaded]($style)"
-loaded_msg = "󰐍"
-not_allowed_msg = ""
-style = "fg:base bg:teal"
-symbol = ""
-unloaded_msg = "󰙧"
-
-[dotnet]
-format = "[ $symbol]($style)"
-style = "fg:base bg:peach"
-symbol = ""
-
-[elixir]
-format = "[ $symbol]($style)"
-style = "fg:base bg:peach"
-symbol = ""
-
-[elm]
-format = "[ $symbol]($style)"
-style = "fg:base bg:peach"
-symbol = ""
-
-[erlang]
-format = "[ $symbol]($style)"
-style = "fg:base bg:peach"
-symbol = ""
+[fill]
+symbol = " "
+#symbol = "⏤"
+#style = ""
 
 [git_branch]
-format = "[ $symbol $branch]($style)"
-style = "fg:base bg:peach"
-symbol = ""
+symbol = " "
+truncation_length = 6
+truncation_symbol = ""
+format = "[ $symbol$branch(:$remote_branch) ]($style)"
+style = "fg:text0 bg:base3"
 
 [git_status]
-ahead = "󰜹"
-behind = "󰜰"
-conflicted = "󰳤 "
-deleted = " "
-diverged = ""
-format = "[ $all_status$ahead_behind]($style)"
-modified = " "
-renamed = " "
-staged = " "
-stashed = " "
-style = "fg:base bg:yellow"
-typechanged = " "
-untracked = " "
-up_to_date = "󰤓"
-
-[golang]
-format = "[ $symbol]($style)"
-style = "fg:base bg:peach"
-symbol = ""
-
-[haskell]
-format = "[ $symbol]($style)"
-style = "fg:base bg:peach"
-symbol = "󰲒"
-
-[haxe]
-format = "[ $symbol]($style)"
-style = "fg:base bg:peach"
-symbol = ""
+#up_to_date = "✓"
+format = "[$all_status$ahead_behind]($style)"
+style = "fg:text0 bg:base4"
 
 [hostname]
 disabled = false
-format = "[ $hostname]($style)[$ssh_symbol](bg:overlay0 fg:maroon)"
-ssh_only = false
-ssh_symbol = " 󰖈"
-style = "bg:overlay0 fg:red"
-
-[java]
-format = "[ $symbol]($style)"
-style = "fg:base bg:peach"
-symbol = "󰬷"
+ssh_only = true
+style = "fg:text0 bg:base1"
+format = "[$ssh_symbol @ $hostname]($style)"
 
 [jobs]
-format = "[ $symbol $number]($style)"
-style = "fg:base bg:teal"
 symbol = "󰣖"
+#number_threshold = 4
+#symbol_threshold = 0
+#symbol_threshold = 1
+format = "[$symbol $number ]($style) "
+style = "fg:text0 bg:base2"
 
-[julia]
-format = "[ $symbol]($style)"
-style = "fg:base bg:peach"
-symbol = ""
-
-[kotlin]
-format = "[ $symbol]($style)"
-style = "fg:base bg:peach"
-symbol = ""
-
-[lua]
-format = "[ $symbol]($style)"
-style = "fg:base bg:peach"
-symbol = ""
-
-[nim]
-format = "[ $symbol]($style)"
-style = "fg:base bg:peach"
-symbol = ""
-
-[nix_shell]
-format = "[ $symbol]($style)"
-style = "fg:base bg:teal"
-symbol = "󱄅"
-
-[nodejs]
-format = "[ $symbol]($style)"
-style = "fg:base bg:peach"
-symbol = ""
-
-[os]
+[line_break]
 disabled = false
-format = "$symbol"
-style = ""
 
-[os.symbols]
-AlmaLinux = "[](fg:text bg:surface1)"
-Alpine = "[](fg:blue bg:surface1)"
-Amazon = "[](fg:peach bg:surface1)"
-Android = "[](fg:green bg:surface1)"
-Arch = "[󰣇](fg:sapphire bg:surface1)"
-Artix = "[](fg:sapphire bg:surface1)"
-CentOS = "[](fg:mauve bg:surface1)"
-Debian = "[](fg:red bg:surface1)"
-DragonFly = "[](fg:teal bg:surface1)"
-EndeavourOS = "[](fg:mauve bg:surface1)"
-Fedora = "[](fg:blue bg:surface1)"
-FreeBSD = "[](fg:red bg:surface1)"
-Garuda = "[](fg:sapphire bg:surface1)"
-Gentoo = "[](fg:lavender bg:surface1)"
-Illumos = "[](fg:peach bg:surface1)"
-Kali = "[](fg:blue bg:surface1)"
-Linux = "[](fg:yellow bg:surface1)"
-Macos = "[](fg:text bg:surface1)"
-Manjaro = "[](fg:green bg:surface1)"
-Mint = "[󰣭](fg:teal bg:surface1)"
-NixOS = "[](fg:sky bg:surface1)"
-OpenBSD = "[](fg:yellow bg:surface1)"
-Pop = "[](fg:sapphire bg:surface1)"
-Raspbian = "[](fg:maroon bg:surface1)"
-RedHatEnterprise = "[](fg:red bg:surface1)"
-Redhat = "[](fg:red bg:surface1)"
-RockyLinux = "[](fg:green bg:surface1)"
-SUSE = "[](fg:green bg:surface1)"
-Solus = "[](fg:blue bg:surface1)"
-Ubuntu = "[](fg:peach bg:surface1)"
-Unknown = "[](fg:text bg:surface1)"
-Void = "[](fg:green bg:surface1)"
-Windows = "[󰖳](fg:sky bg:surface1)"
-openSUSE = "[](fg:green bg:surface1)"
-
-[package]
-format = "[ $version]($style)"
-style = "fg:base bg:peach"
-version_format = "$raw"
-
-[palettes.catppuccin_mocha]
-base = "#1e1e2e"
-blue = "#89b4fa"
-crust = "#11111b"
-flamingo = "#f2cdcd"
-green = "#a6e3a1"
-lavender = "#b4befe"
-mantle = "#181825"
-maroon = "#eba0ac"
-mauve = "#cba6f7"
-overlay0 = "#6c7086"
-overlay1 = "#7f849c"
-overlay2 = "#9399b2"
-peach = "#fab387"
-pink = "#f5c2e7"
-red = "#f38ba8"
-rosewater = "#f5e0dc"
-sapphire = "#74c7ec"
-sky = "#89dceb"
-subtext0 = "#a6adc8"
-subtext1 = "#bac2de"
-surface0 = "#313244"
-surface1 = "#45475a"
-surface2 = "#585b70"
-teal = "#94e2d5"
-text = "#cdd6f4"
-yellow = "#f9e2af"
-
-[perl]
-format = "[ $symbol]($style)"
-style = "fg:base bg:peach"
-symbol = ""
-
-[php]
-format = "[ $symbol]($style)"
-style = "fg:base bg:peach"
-symbol = "󰌟"
-
-[python]
-format = "[ $symbol]($style)"
-style = "fg:base bg:peach"
-symbol = ""
-
-[rlang]
-format = "[ $symbol]($style)"
-style = "fg:base bg:peach"
-symbol = ""
-
-[ruby]
-format = "[ $symbol]($style)"
-style = "fg:base bg:peach"
-symbol = ""
-
-[rust]
-format = "[ $symbol]($style)"
-style = "fg:base bg:peach"
-symbol = ""
-
-[scala]
-format = "[ $symbol]($style)"
-style = "fg:base bg:peach"
-symbol = ""
-
-[shlvl]
+[shell]
 disabled = false
-format = "[ $symbol]($style)"
-repeat = false
-style = "fg:surface1 bg:teal"
-symbol = "󱆃"
-threshold = 3
-
-[status]
-disabled = false
-format = "$symbol"
-map_symbol = true
-not_executable_symbol = "[](fg:teal bg:pink)[  $common_meaning](fg:red bg:pink)"
-not_found_symbol = "[](fg:teal bg:pink)[ 󰩌 $common_meaning](fg:red bg:pink)"
-sigint_symbol = "[](fg:teal bg:pink)[  $signal_name](fg:red bg:pink)"
-signal_symbol = "[](fg:teal bg:pink)[ ⚡ $signal_name](fg:red bg:pink)"
-style = ""
-success_symbol = "[](fg:teal bg:blue)"
-symbol = "[](fg:teal bg:pink)[  $status](fg:red bg:pink)"
+bash_indicator = "bsh"
+zsh_indicator = "zsh"
+unknown_indicator = "mystery shell"
+format = "[ $indicator ]($style)"
+style = "fg:text0 bg:base1"
 
 [sudo]
 disabled = false
-format = "[ $symbol]($style)"
-style = "fg:rosewater bg:surface2"
 symbol = "󰌋"
-
-[swift]
-format = "[ $symbol]($style)"
-style = "fg:base bg:peach"
-symbol = ""
+format = "[ $symbol ]($style)"
+style = "fg:text0 bg:base4"
 
 [time]
-disabled = true
+disabled = false
+time_format = "%T"
+format = "[ $time]($style)"
+style = "fg:text0 bg:base0"
+time_range = "08:00:00-16:30:00"
 
 [username]
-format = "[ $user]($style)"
+disabled = false
 show_always = true
-style_root = "fg:red bg:surface2"
-style_user = "fg:green bg:surface2"
-[username.aliases]
-kanter = "󰝴"
-root = "󰱯"
+format = "[$user]($style)"
+style_user = "fg:text0 bg:base0"
+style_root = "fg:red bg:base0"
 
-[zig]
-format = "[ $symbol]($style)"
-style = "fg:base bg:peach"
-symbol = ""
-
+[palettes.gandert]
+base0 = "#45475a"
+base1 = "#57596a"
+base2 = "#6a6b7a"
+base3 = "#7c7e8b"
+base4 = "#8f909c"
+#base5 = "#a2a3ac" # not used
+#base6 = "#b4b5bd" # not used
+#base7 = "#c7c7cd" # not used
+#base8 = "#d9dade" # not used
+#base9 = "#ececee" # not used
+#basek = "#ffffff" # not used = white
+text0 = "#ececee"
