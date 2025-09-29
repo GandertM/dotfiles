@@ -25,8 +25,6 @@ add_newline = true
 # color palette
 palette = "gandert"
 
-# test
-
 [character]
 disabled = false
 success_symbol = "[ ❯](green) "
