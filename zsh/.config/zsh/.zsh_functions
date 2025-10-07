@@ -77,24 +77,42 @@ install() {
 
 }
 
-
 # Check if package is installed
 command_exists() {
     command -v "$1" >/dev/null 2>&1
 }
 
-
 update_system() {
   
   command_exists nala && sudo nala upgrade || 
-  
   command_exists apt-get && sudo apt-get update && sudo apt-get upgrade ||
-
   command_exists zypper && sudo zypper refresh && sudo zypper update ||
-
   text_color "Red" "Can't find a supported package manager"
+
 }
 
+update_opensuse() {
+    
+    # Detect openSUSE variant
+    if [[ -f /etc/os-release ]]; then
+        source /etc/os-release
+        echo "➡️ Detected: $PRETTY_NAME"
+    else
+        echo "❌ Could not detect openSUSE version."
+        return 1
+    fi
+
+    # Refreshing repositories
+    sudo zypper ref
+
+    # Only run dist-upgrade (dup) on Slowroll or Tumbleweed
+    if echo "$ID" | grep -qiE 'tumbleweed|slowroll'; then
+        sudo zypper dup
+    else
+        sudo zypper up
+    fi
+
+}
 
 update() {
 
@@ -116,7 +134,8 @@ update() {
 
   text_color "Cyan" "UPDATE SYSTEM"
 
-  update_system  
+  #update_system
+  update_opensuse
   
   line_blue
   
@@ -141,14 +160,15 @@ update() {
         
 }
 
-
 cheatsh() {
+
   # Ask cheat.sh website for details about a Linux command.
   curl -m 10 "http://cheat.sh/${1}" 2>/dev/null || printf '%s\n' "[ERROR] Something broke"
+
 }
 
-
 flocate() {
+
   # locate file, but exclude snapshots
   if [ -z "$1" ]
   then
@@ -156,8 +176,22 @@ flocate() {
   else
     locate "$1" | grep -vi .snapshots
   fi
+
 }
 
+man_print() {
+  MANUALS="${HOME}/Documents/Naslag - Linux - Manuals/"
+  APP="$1"
+  FILE="man-${APP}.txt"
+  
+  if [ -z "$1" ]
+  then
+    printf "You need to add a search string!"
+  else
+    man "$APP" > "$MANUALS$FILE" 
+    cat "$MANUALS$FILE"
+  fi
+}
 
 # ARCHIVE EXTRACTION
 # usage: ex <file>
@@ -185,7 +219,6 @@ ex ()
     printf '..%s..' "This file (" "$1" ") is not a valid one."
   fi
 }
-
 
 path() {
   echo "$PATH" | tr ":" "\n" | nl

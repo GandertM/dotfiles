@@ -180,3 +180,7 @@ alias cmfor="chezmoi forget"
 alias ga='git add'
 alias gcm='git commit -m "$1"'
 alias gp='git push -u origin main'
+
+# Aliases for zypper
+alias zs="zypper search"
+alias zsr="zypper search -s --match-exact"
