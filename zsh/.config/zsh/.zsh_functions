@@ -141,7 +141,9 @@ update() {
   
   text_color "Cyan" "UPDATE FLATPAK"
 
-  flatpak update
+  flatpak --user uninstall --unused
+  flatpak --user update
+  flatpak --user repair
     
   line_blue
   
