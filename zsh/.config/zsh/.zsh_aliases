@@ -1,6 +1,5 @@
 ### personal aliases file ###
 
-
 ### colors ###
 
 RC='\033[0m'
@@ -9,7 +8,6 @@ YELLOW='\033[33m'
 CYAN='\033[36m'
 GREEN='\033[32m'
 BLUE='\033[34m'
-
 
 ### aliases ###
 
@@ -31,7 +29,8 @@ alias df="df -h -x tmpfs -x squashfs -x devtmpfs -x efivarfs"
 alias speedtest="curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python3 -"
 alias mem5="ps auxf | sort -nr -k 4 | head -5"
 alias cpu5="ps auxf | sort -nr -k 3 | head -5"
-alias ipreset="NIC=$(netstat -r | awk '/default/ {print $NF}' | sort -u | grep -v '^w'); sudo dhclient -r -v $NIC && sudo dhclient -v $NIC"
+#alias ipreset="NIC=$(netstat -r | awk '/default/ {print $NF}' | sort -u | grep -v '^w'); sudo dhclient -r -v $NIC && sudo dhclient -v $NIC"
+alias ipreset="NIC=$(ip link show | grep 'state UP' | awk '{print substr($2,1,length($2)-1)}' | sort -u); sudo dhclient -r -v $NIC && sudo dhclient -v $NIC"
 alias ipext="curl icanhazip.com"
 alias openports='sudo ss -tulpn'
 
@@ -150,8 +149,8 @@ alias egrep="egrep --color=auto"
 alias fgrep="fgrep --color=auto"
 
 # adding flags
-alias df="df -h"                          # human-readable sizes
-alias free="free -m"                      # show sizes in MB
+alias df="df -h"     # human-readable sizes
+alias free="free -m" # show sizes in MB
 
 # ps
 alias psa="ps auxf"
