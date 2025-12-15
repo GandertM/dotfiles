@@ -143,13 +143,14 @@ update() {
 
   flatpak --user uninstall --unused
   flatpak --user update
-  flatpak --user repair
-    
+      
   line_blue
   
   # if time has passed, execute
   if [ $DELTA -ge $INTERVAL ]; then
     
+	flatpak --user repair
+
     text_color "Cyan" "UPDATE ZINIT"
 
     zinit self-update && zinit update
