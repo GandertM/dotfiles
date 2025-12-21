@@ -17,6 +17,7 @@ append_to_path() {
 
 # Set your path
 pre_append_to_path "$HOME/.fzf/bin" # (add fzf to PATH), see below
+append_to_path "$HOME/bin"
 append_to_path "$HOME/Projects"
 
 # Export the PATH variable to make it available to child processes
@@ -78,7 +79,7 @@ setopt hist_find_no_dups
 
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'              # autocompletion with both upper- and lowercase
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"             # autocompletion with colors (only for ls
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"             # autocompletion with colors (only for ls)
 zstyle ':completion:*' menu no                                      # disables default zsh completion / see plugin Aloxaf/fzf-tab
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'  # fzf file browser
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
