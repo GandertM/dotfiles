@@ -1,8 +1,11 @@
 # Get editor completions base3 on the config schema
 "$schema" = "https://starship.rs/config-schema.json"
 
+# Customizing the prompt (and placing desired modules at desired position and sequence):
+# ╭╴ # \u256D\u2574
+# ╰╴ # \u2570\u2574
 format = """
-[](fg:base0)$username[](fg:base0 bg:base1)$hostname[](fg:base1 bg:base2)$directory\
+[╭](fg:base0)[](fg:base0)$username[](fg:base0 bg:base1)$hostname[](fg:base1 bg:base2)$directory\
 [](fg:base2 bg:base3)$git_branch[](fg:base3 bg:base4)$git_status[](fg:base4)\
 $fill\
 [](fg:base4)$sudo\
@@ -16,7 +19,7 @@ $shell\
 $time\
 [](fg:base0)\
 $line_break\
-$status\
+[╰─](fg:base0)$status\
 $character"""
 
 # Inserts a blank line between shell prompts
@@ -27,8 +30,9 @@ palette = "gandert"
 
 [character]
 disabled = false
-success_symbol = "[ ❯](green) "
-error_symbol = "[ ❌](bold red) "
+success_symbol = "[❯](green) "
+error_symbol = "[🔥](bold red) "
+#error_symbol = "[🔥🧨×📛𝕏𝔵⦻✗⊗❌](bold red) "
 format = "$symbol"
 
 [cmd_duration]
@@ -48,9 +52,9 @@ format = "[ $path $read_only]($style)"
 style = "fg:text0 bg:base2"
 
 [fill]
-symbol = " "
-#symbol = "⏤"
-#style = ""
+#symbol = " "
+symbol = "─"
+style = "fg:base0"
 
 [git_branch]
 symbol = " "
