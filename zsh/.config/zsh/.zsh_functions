@@ -226,3 +226,28 @@ ex ()
 path() {
   echo "$PATH" | tr ":" "\n" | nl
 }
+
+app-info() {
+  CLIINFO="${HOME}/temp/"
+
+  if [[ -n "$1" ]] ; then
+    echo "$1"
+
+    # create cheatsheet
+    #cheatsh "$1" > "$CLIINFO"/"$1"-cheatsheet.txt
+    curl -m 10 "http://cheat.sh/${1}" > "$CLIINFO"/"$1"-cheatsheet2.txt
+
+    # create manpage
+    man "$1" > "$CLIINFO"/"$1"-manpage.txt
+
+    # create info
+    info "$1" > "$CLIINFO"/"$1"-info.txt
+
+    # create tldr
+    tldr "$1" > "$CLIINFO"/"$1"-tldr.txt
+
+  else
+    echo "No parameter provided."
+  fi
+
+}
