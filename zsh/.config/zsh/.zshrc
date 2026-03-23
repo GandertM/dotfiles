@@ -1,33 +1,32 @@
 # based on: https://github.com/dreamsofautonomy/zensh/blob/main/.zshrc
 
-# To avoid duplicates in $PATH
+# ~~~~~~~~~~~~~~~~~~~~~~ Path Configuration ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# setopt extended_glob null_glob
+
+path=(
+   $HOME/.fzf/bin          # add fzf, see below
+   $path                   # Keep existing PATH entries
+   $HOME/bin
+   $HOME/projects
+)
+
+# Remove duplicates in and non-existing from PATH
 typeset -aU path
-
-# Function to pre-append the directory to the path array.
-pre_append_to_path() {
-   local dir="$1"
-   [[ -d "$dir" ]] && path=("$dir" $path)
-}
-
-# Function to append the directory to the path array.
-append_to_path() {
-   local dir="$1"
-   [[ -d "$dir" ]] && path+=("$dir")
-}
-
-# Set your path
-pre_append_to_path "$HOME/.fzf/bin" # (add fzf to PATH), see below
-append_to_path "$HOME/bin"
-append_to_path "$HOME/Projects"
+path=($^path(N-/))
 
 # Export the PATH variable to make it available to child processes
 export PATH
+
+# ~~~~~~~~~~~~~~~~~~~~~~ Environment Variables ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Set my editor
 export EDITOR=/usr/bin/micro
 
 # Set my man pages
 export MAN_POSIXLY_CORRECT=1
+
+# ~~~~~~~~~~~~~~~~~~~~~~ Zinit Configuration ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
@@ -58,13 +57,15 @@ autoload -Uz compinit && compinit
 
 zinit cdreplay -q
 
-# Keybindings
+# ~~~~~~~~~~~~~~~~~~~~~~ Key Bindings ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 bindkey -e                            # emacs keybindings
 bindkey '^p' history-search-backward  # ctrl-p : search history backward (p = previous)
 bindkey '^n' history-search-forward   # ctrl-n : search history forward (n = next)
 bindkey '^[w' kill-region             # alt-w  : kill from the cursor to the mark
 
-# History
+# ~~~~~~~~~~~~~~~~~~~~~~ History Configuration ~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
 HISTSIZE=100000
 HISTFILE=$ZDOTDIR/.zsh_history
 SAVEHIST=$HISTSIZE
@@ -77,22 +78,30 @@ setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
 
-# Completion styling
+# ~~~~~~~~~~~~~~~~~~~~~~ Conmpletion Configuration ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'              # autocompletion with both upper- and lowercase
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"             # autocompletion with colors (only for ls)
 zstyle ':completion:*' menu no                                      # disables default zsh completion / see plugin Aloxaf/fzf-tab
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'  # fzf file browser
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
+# ~~~~~~~~~~~~~~~~~~~~~~ Colour Configuration ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 # change of default colours (green en red) to (blue and red)
 ZSH_HIGHLIGHT_STYLES[suffix-alias]=fg=blue,underline
 ZSH_HIGHLIGHT_STYLES[precommand]=fg=blue,underline
 ZSH_HIGHLIGHT_STYLES[arg0]=fg=blue
 
+# ~~~~~~~~~~~~~~~~~~~~~~ Sourcing Configuration ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 # Fastfetch
 if [ -f /usr/bin/fastfetch ]; then
 	fastfetch
 fi
+
+# Starship
+eval "$(starship init zsh)"
 
 # Fzf - reminder
 if [ -f /usr/bin/fzf ]; then
@@ -106,15 +115,8 @@ if [ -f /usr/bin/fzf ]; then
    echo '---------------------------------------------------'
 fi
 
-# Aliases
-#[[ -f "$ZDOTDIR"/.zsh_aliases ]] && source "$ZDOTDIR"/.zsh_aliases -- see precmd()
-
-# Functions
-#[[ -f "$ZDOTDIR"/.zsh_functions ]] && source "$ZDOTDIR"/.zsh_functions -- see precmd()
-
 # Shell integrations
 eval "$(fzf --zsh)"                 # option --zsh only works in 0.48.0 or later (add fzf to PATH)
-#eval "$(zoxide init zsh)"           # after install from https://github.com/ajeetdsouza/zoxide
 eval "$(zoxide init --cmd cd zsh)"  # https://github.com/dreamsofautonomy/zensh/blob/main/.zshrc
 
 # Source aliases and functions for every new prompt or after every command
@@ -123,5 +125,4 @@ precmd() {
    [[ -f "$ZDOTDIR"/.zsh_functions ]] && source "$ZDOTDIR"/.zsh_functions
 }
 
-# Prompt
-eval "$(starship init zsh)"
+# ~~~~~~~~~~~~~~~~~~~~~~ End Configuration ~~~~~~~~~~~~~~~~~~~~~~~~~~
