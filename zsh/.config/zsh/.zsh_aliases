@@ -132,7 +132,7 @@ alias fgrep="fgrep --color=auto"
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~ history ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-alias h="history | grep "
+alias h="history | grep -i "
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~ journalctl ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
