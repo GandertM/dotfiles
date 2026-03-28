@@ -124,8 +124,12 @@ update() {
   # if time has passed, execute
   if [ $DELTA -ge $INTERVAL ]; then
     
-	flatpak --user repair
+    text_color "Cyan" "UPDATE FLATPAK"
 
+	  flatpak --user repair
+
+    line_blue
+    
     text_color "Cyan" "UPDATE ZINIT"
 
     zinit self-update && zinit update
