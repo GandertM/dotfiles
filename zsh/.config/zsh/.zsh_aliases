@@ -41,6 +41,8 @@ alias ipreset="NIC=$(ip link show | grep 'state UP' | awk '{print substr($2,1,le
 alias ipext="curl icanhazip.com"
 alias openports='sudo ss -tulpn'
 alias free="free -m" # show sizes in MB
+alias netdev="nmcli device status"
+alias netdns="nmcli dev show | grep DNS"
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
