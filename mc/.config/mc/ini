@@ -62,7 +62,7 @@ editor_group_undo=true
 editor_state_full_filename=true
 editor_ask_filename_before_edit=false
 nice_rotating_dash=true
-shadows=true
+shadows=false
 mcview_remember_file_position=false
 auto_fill_mkdir_name=true
 copymove_persistent_attr=true
@@ -83,14 +83,14 @@ editor_backup_extension=~
 editor_filesize_threshold=64M
 editor_stop_format_chars=-+*\\,.;:&>
 mcview_eof=
-skin=dracula256
+skin=modarcon16-defbg-thin
 shell_directory_timeout=900
 
 [Layout]
 output_lines=0
 left_panel_size=116
 top_panel_size=0
-message_visible=true
+message_visible=false
 keybar_visible=true
 xterm_title=true
 command_prompt=true
@@ -142,7 +142,7 @@ select_flags=6
 simple_swap=false
 
 [Panelize]
+Modified git files=git ls-files --modified
+Find rejects after patching=find . -name \\*.rej -print
 Find *.orig after patching=find . -name \\*.orig -print
 Find SUID and SGID programs=find . \\( \\( -perm -04000 -a -perm /011 \\) -o \\( -perm -02000 -a -perm /01 \\) \\) -print
-Find rejects after patching=find . -name \\*.rej -print
-Modified git files=git ls-files --modified
