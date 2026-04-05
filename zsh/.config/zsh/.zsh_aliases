@@ -144,6 +144,10 @@ alias jctl="sudo journalctl -xb"
 
 alias ls="ls -h --color=auto --group-directories-first"
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~ mc ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+alias mc="mc --nocolor"      # required else theming goes off
+
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~ ps ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 alias psa="ps auxf"
