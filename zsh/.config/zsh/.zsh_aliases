@@ -147,7 +147,7 @@ alias ls="ls -h --color=auto --group-directories-first"
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~ mc ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-alias mc="mc --nocolor"      # required else theming goes off
+alias mcnc="mc --nocolor"      # required else theming goes off
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~ ps ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
