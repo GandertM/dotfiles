@@ -117,7 +117,8 @@ alias ltc3="lt3 --sort=created"
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~ find ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-alias f="find . | grep "        # Search files in the current folder
+alias fn="find ./ -name "        # Search by file name
+#alias fc="find ./ | grep "        # Search by file content
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~ git ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
