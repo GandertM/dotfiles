@@ -117,7 +117,7 @@ fi
 
 # Shell integrations
 eval "$(fzf --zsh)"             # option --zsh only works in 0.48.0 or later (add fzf to PATH)
-eval "$(zoxide init zsh)"       # https://github.com/dreamsofautonomy/zensh/blob/main/.zshrc
+eval "$(zoxide init zsh)"       # see github.com/chhoumann/dotfiles
 
 # Source aliases and functions for every new prompt or after every command
 precmd() {
