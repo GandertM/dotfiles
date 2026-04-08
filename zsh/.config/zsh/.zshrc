@@ -116,8 +116,8 @@ if [ -f /usr/bin/fzf ]; then
 fi
 
 # Shell integrations
-eval "$(fzf --zsh)"                 # option --zsh only works in 0.48.0 or later (add fzf to PATH)
-eval "$(zoxide init --cmd cd zsh)"  # https://github.com/dreamsofautonomy/zensh/blob/main/.zshrc
+eval "$(fzf --zsh)"             # option --zsh only works in 0.48.0 or later (add fzf to PATH)
+eval "$(zoxide init zsh)"       # https://github.com/dreamsofautonomy/zensh/blob/main/.zshrc
 
 # Source aliases and functions for every new prompt or after every command
 precmd() {
