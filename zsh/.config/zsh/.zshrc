@@ -38,31 +38,47 @@ if [ ! -d "$ZINIT_HOME" ]; then
 fi
 
 # Source/Load zinit
-source "${ZINIT_HOME}/zinit.zsh"
+if [[ -r "${ZINIT_HOME}/zinit.zsh" ]]; then
+   source "${ZINIT_HOME}/zinit.zsh"
+fi
 
 # Add in zsh plugins
-zinit light zsh-users/zsh-syntax-highlighting
-zinit light zsh-users/zsh-completions
-zinit light zsh-users/zsh-autosuggestions
-zinit light Aloxaf/fzf-tab
+if (( ${+functions[zinit]} )); then
+   zinit light zsh-users/zsh-syntax-highlighting
+   zinit light zsh-users/zsh-completions
+   zinit light zsh-users/zsh-autosuggestions
+   zinit light Aloxaf/fzf-tab
+fi
 
 # Add in snippets (including aliases)
-zinit snippet OMZP::git
-zinit snippet OMZP::sudo
-zinit snippet OMZP::colored-man-pages
-zinit snippet OMZP::command-not-found
+if (( ${+functions[zinit]} )); then
+   zinit snippet OMZP::git
+   zinit snippet OMZP::sudo
+   zinit snippet OMZP::colored-man-pages
+   zinit snippet OMZP::command-not-found
+fi
 
 # Load completions
 autoload -Uz compinit && compinit
 
-zinit cdreplay -q
+if (( ${+functions[zinit]} )); then
+   zinit cdreplay -q
+fi
 
 # ~~~~~~~~~~~~~~~~~~~~~~ Key Bindings ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 bindkey -e                            # emacs keybindings
+
 bindkey '^p' history-search-backward  # ctrl-p : search history backward (p = previous)
 bindkey '^n' history-search-forward   # ctrl-n : search history forward (n = next)
-bindkey '^[w' kill-region             # alt-w  : kill from the cursor to the mark
+
+#bindkey '^[w' kill-region             # alt-w  : kill from the cursor to the mark
+
+bindkey '^[[1;5C' forward-word        # moving between words with CTRL+left
+bindkey '^[[1;5D' backward-word       # moving between words with CTRL+right
+
+bindkey '^[u' undo                    # undo with alt+u
+bindkey '^[r' redo                    # redo with alt+r
 
 # ~~~~~~~~~~~~~~~~~~~~~~ History Configuration ~~~~~~~~~~~~~~~~~~~~~~~~~~
  
