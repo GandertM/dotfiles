@@ -165,7 +165,7 @@ alias jctl="sudo journalctl -xb"
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~ ls ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-alias ls="ls -h --color=auto --group-directories-first"
+alias ls="ls -h --color=always --group-directories-first --group --time-style=long-iso"
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~ mc ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
