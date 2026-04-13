@@ -48,15 +48,15 @@ draw_line() {
   local width
   width=$(get_terminal_width)  # Get the terminal width
 
-  # Draw a horizontal line
-  printf "\033[${color_code}m"
+  # Draw a horizontal line starting with skipped a line
+  printf "\n\033[${color_code}m"
   for ((i=0; i<width; i++)); do
     echo -n "─"
   done
   printf "\033[0m\n"  # Reset color
 }
 
-# Function to print the text
+# Function to print the text and skip a line
 print_colored_text() {
   local color=$1
   local text=$2
@@ -123,44 +123,35 @@ update() {
   NOW="$(date +%s 2>/dev/null)"
   DELTA=$(($NOW-$STAMP))
 
-  #line_blue
   draw_line "blue"
 
-  #text_color "Cyan" "UPDATE SYSTEM"
   print_colored_text "green" "UPDATE SYSTEM"
 
   #update_system
   update_opensuse
   
-  #line_blue
   draw_line "blue"
 
-  #text_color "Cyan" "UPDATE FLATPAK"
   print_colored_text "green" "UPDATE FLATPAK"
 
   flatpak --user uninstall --unused
   flatpak --user update
       
-  #line_blue
   draw_line "blue"
   
   # if time has passed, execute
   if [[ $DELTA -ge $INTERVAL ]]; then
     
-    #text_color "Cyan" "UPDATE FLATPAK"
     print_colored_text "green" "REPAIR FLATPAK"
 
 	  flatpak --user repair
 
-    #line_blue
     draw_line "blue"
     
-    #text_color "Cyan" "UPDATE ZINIT"
     print_colored_text "green" "UPDATE ZINIT"
 
     zinit self-update && zinit update
 
-    #line_blue
     draw_line "blue"
 
     touch $STAMP_FILE
