@@ -1,4 +1,4 @@
-# based on: https://github.com/dreamsofautonomy/zensh/blob/main/.zshrc
+# ~~~~~~~~~~~~~~~~~~~~~~ .zshrc ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # ~~~~~~~~~~~~~~~~~~~~~~ Globbing ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -92,7 +92,7 @@ bindkey '^[r' redo                    # redo with alt+r
 
 # ~~~~~~~~~~~~~~~~~~~~~~ History Configuration ~~~~~~~~~~~~~~~~~~~~~~~~~~
  
-HISTSIZE=100000
+HISTSIZE=25000
 HISTFILE=$ZDOTDIR/.zsh_history
 SAVEHIST=$HISTSIZE
 HISTDUP=erase
@@ -165,3 +165,8 @@ precmd() {
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~ End Configuration ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# ~~~~~~~~~~~~~~~~~~~~~~ Thanks to ~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Youtube 'Dreams of Autonomy' for guidance
+# github.com/chhoumann/dotfiles for examples
+# ~~~~~~~~~~~~~~~~~~~~~~ END ~~~~~~~~~~~~~~~~~~~~~~~~~~
