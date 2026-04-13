@@ -30,7 +30,8 @@ export PATH
 # ~~~~~~~~~~~~~~~~~~~~~~ Environment Variables ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Set my editor
-export EDITOR=/usr/bin/micro
+export EDITOR="/usr/bin/fresh"
+export VISUAL="/usr/bin/codium"
 
 # Set my man pages
 export MAN_POSIXLY_CORRECT=1
