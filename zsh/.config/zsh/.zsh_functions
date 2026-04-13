@@ -4,52 +4,70 @@
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~ Colours Configuration ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-RC='\033[0m'
-RED='\033[31m'
-YELLOW='\033[33m'
-CYAN='\033[36m'
-GREEN='\033[32m'
-BLUE='\033[34m'
-
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~ Coloured Lines ~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-line_blue() {
-  # Drawing horizontal blue line in full width
-  print "${BLUE}"; print -- ${(l:COLUMNS::─:)}; print "${RC}"
+# Function to determine width of the terminal
+get_terminal_width() {
+  tput cols
 }
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~ Coloured Texts ~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-text_color() {
-  
-  # Print a text ($2) with a color ($1)
-  local input_color=$1
-
-  # Colors
-  case "$input_color" in
-       "Default")      colorString='\033[0;39m';;
-       "Black" )       colorString='\033[0;30m';;
-       "DarkRed" )     colorString='\033[0;31m';;
-       "DarkGreen" )   colorString='\033[0;32m';;
-       "DarkYellow" )  colorString='\033[0;33m';;
-       "DarkBlue" )    colorString='\033[0;34m';;
-       "DarkMagenta" ) colorString='\033[0;35m';;
-       "DarkCyan" )    colorString='\033[0;36m';;
-       "Gray" )        colorString='\033[0;37m';;
-       "DarkGray" )    colorString='\033[1;90m';;
-       "Red" )         colorString='\033[1;91m';;
-       "Green" )       colorString='\033[1;92m';;
-       "Yellow" )      colorString='\033[1;93m';;
-       "Blue" )        colorString='\033[1;94m';;
-       "Magenta" )     colorString='\033[1;95m';;
-       "Cyan" )        colorString='\033[1;96m';;
-       "White" )       colorString='\033[1;97m';;
-       *)              colorString='\033[0;39m';;
+# Function to get the colorcode entered
+get_color_code() {
+  case $1 in
+    black)        echo "30" ;;
+    gray)         echo "90" ;;
+    red)          echo "31" ;;
+    green)        echo "32" ;;
+    yellow)       echo "33" ;;
+    blue)         echo "34" ;;
+    magenta)      echo "35" ;;
+    cyan)         echo "36" ;;
+    white)        echo "37" ;;
+    bright_black) echo "90" ;;
+    bright_red)   echo "91" ;;
+    bright_green) echo "92" ;;
+    bright_yellow) echo "93" ;;
+    bright_blue)  echo "94" ;;
+    bright_magenta) echo "95" ;;
+    bright_cyan)  echo "96" ;;
+    bright_white) echo "97" ;;
+    *) 
+      echo "Invalid color!" 
+      return 1
+      ;;
   esac
+}
 
-  # Print the text
-  printf "%b" "${colorString}" "$2" "${RC}\n\n"
+# Function to draw a horizontal line across the terminal
+draw_line() {
+  local color=$1
+  local color_code
+  color_code=$(get_color_code "$color")
+  if [ -z "$color_code" ]; then
+    return 1  # Quit when color is invalid
+  fi
 
+  local width
+  width=$(get_terminal_width)  # Get the terminal width
+
+  # Draw a horizontal line
+  printf "\033[${color_code}m"
+  for ((i=0; i<width; i++)); do
+    echo -n "─"
+  done
+  printf "\033[0m\n"  # Reset color
+}
+
+# Function to print the text
+print_colored_text() {
+  local color=$1
+  local text=$2
+  local color_code
+  color_code=$(get_color_code "$color")
+  if [ -z "$color_code" ]; then
+    return 1  # Quit when color is invalid
+  fi
+
+  # Print the text and rest the color
+  printf "\033[${color_code}m${text}\033[0m\n\n"
 }
 
 
@@ -105,36 +123,45 @@ update() {
   NOW="$(date +%s 2>/dev/null)"
   DELTA=$(($NOW-$STAMP))
 
-  line_blue
+  #line_blue
+  draw_line "blue"
 
-  text_color "Cyan" "UPDATE SYSTEM"
+  #text_color "Cyan" "UPDATE SYSTEM"
+  print_colored_text "green" "UPDATE SYSTEM"
 
   #update_system
   update_opensuse
   
-  line_blue
-  
-  text_color "Cyan" "UPDATE FLATPAK"
+  #line_blue
+  draw_line "blue"
+
+  #text_color "Cyan" "UPDATE FLATPAK"
+  print_colored_text "green" "UPDATE FLATPAK"
 
   flatpak --user uninstall --unused
   flatpak --user update
       
-  line_blue
+  #line_blue
+  draw_line "blue"
   
   # if time has passed, execute
-  if [ $DELTA -ge $INTERVAL ]; then
+  if [[ $DELTA -ge $INTERVAL ]]; then
     
-    text_color "Cyan" "UPDATE FLATPAK"
+    #text_color "Cyan" "UPDATE FLATPAK"
+    print_colored_text "green" "REPAIR FLATPAK"
 
 	  flatpak --user repair
 
-    line_blue
+    #line_blue
+    draw_line "blue"
     
-    text_color "Cyan" "UPDATE ZINIT"
+    #text_color "Cyan" "UPDATE ZINIT"
+    print_colored_text "green" "UPDATE ZINIT"
 
     zinit self-update && zinit update
 
-    line_blue
+    #line_blue
+    draw_line "blue"
 
     touch $STAMP_FILE
 
