@@ -110,7 +110,7 @@ update_opensuse() {
 update() {
 
   # define timestamp file
-  STAMP_FILE="$HOME/.ts_update.ts"
+  STAMP_FILE="$HOME/.timestamp_weekly.ts"
   
   # use interval of 1 week
   INTERVAL="604800"   
@@ -151,6 +151,12 @@ update() {
     print_colored_text "green" "UPDATE ZINIT"
 
     zinit self-update && zinit update
+
+    draw_line "blue"
+    
+    print_colored_text "green" "UPDATE FRESH-EDITOR"
+    
+    curl -sL $(curl -s https://api.github.com/repos/sinelaw/fresh/releases/latest | grep "browser_download_url.*\.$(uname -m)\.rpm" | cut -d '"' -f 4) -o fresh-editor.rpm && sudo rpm -U fresh-editor.rpm
 
     draw_line "blue"
 
