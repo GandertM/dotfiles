@@ -128,9 +128,13 @@ else
                find . -maxdepth 1 -type f -name ".*" -exec ls -lh --color=always --time-style=long-iso {} +)"
 fi
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~ fresh-editor ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+alias fe="fresh"                  # Start the fresh-editor
+
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~ find ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-alias fn="find ./ -name "        # Search by file name
+alias fn="find ./ -name "         # Search by file name
 #alias fc="find ./ | grep "        # Search by file content
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~ git ~~~~~~~~~~~~~~~~~~~~~~~~~~
