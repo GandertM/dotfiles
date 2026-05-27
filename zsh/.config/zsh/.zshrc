@@ -155,7 +155,7 @@ if command -v fzf >/dev/null 2>&1; then
 fi
 
 if command -v zoxide >/dev/null 2>&1; then
-    eval "$(zoxide init zsh)"       # see github.com/chhoumann/dotfiles
+    eval "$(zoxide init --cmd cd zsh)"       # integrate zoxide into cd
 fi
 
 # Source aliases and functions for every new prompt or after every command
