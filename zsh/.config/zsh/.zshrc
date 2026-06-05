@@ -9,7 +9,7 @@ setopt extended_glob null_glob
 path_prepend() {
   local dir="$1"
   [[ -d "$dir" ]] || return 0     # skip if non-existing
-  path=("$dir" $path)
+  path=("$dir" "$path")
 }
 
 path_append() {
@@ -114,7 +114,7 @@ if command -v eza >/dev/null 2>&1; then
     zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza --color=always --icons --git --group-directories-first "$realpath"'
     zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'eza --color=always --icons --git --group-directories-first "$realpath"'
 else
-    zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'  # fzf file browser
+    zstyle ':fzf-tab:complete:cd:*' fzf-preview "ls --color $realpath"  # fzf file browser
     zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 fi
 
