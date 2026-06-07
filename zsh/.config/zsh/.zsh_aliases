@@ -173,6 +173,13 @@ alias psgrep="ps aux | grep -v grep | grep -i -e VSZ -e"
 alias psmem="ps auxf | sort -nr -k 4"
 alias pscpu="ps auxf | sort -nr -k 3"
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~ snapper ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+alias snaplsr="sudo snapper -c root list"       # list snapshots from /
+alias snaplsh="sudo snapper -c home list"       # list snapshots from /home
+alias snapstat="sudo snapper status"            # list file differences between snapshots
+alias snapdiff="sudo snapper diff"              # list content differences between snapshots
+
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~ zypper ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 alias zs="zypper search"
