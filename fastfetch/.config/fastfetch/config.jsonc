@@ -18,23 +18,28 @@
         },
         {
             "type": "host",
+            "keyColor": "green",
             "key": "  󰌢"
         },
         {
             "type": "cpu",
+            "keyColor": "green",
             "key": "  "
         },
         {
             "type": "gpu",
             "detectionMethod": "pci",
+            "keyColor": "green",
             "key": "  "
         },
         {
             "type": "display",
+            "keyColor": "green",
             "key": "  󱄄"
         },
         {
             "type": "memory",
+            "keyColor": "green",
             "key": "  "
         },
         {
@@ -43,23 +48,28 @@
         },
         {
             "type": "os",
+            "keyColor": "green",
             "key": "  " // Just get your distro's logo off nerdfonts.com,
         },
         {
             "type": "kernel",
             "key": "  ",
+            "keyColor": "green",
             "format": "{1} {2}"
         },
         {
             "type": "wm",
+            "keyColor": "green",
             "key": "  "
         },
         {
             "type": "DE",
+            "keyColor": "green",
             "key": "  󱄄"
         },
         {   
             "type": "shell",
+            "keyColor": "green",
             "key": "  "
         },
         {
@@ -67,8 +77,15 @@
             "format": "├────────────────── \u001b[1mNetwork Information\u001b[0m ───────────────────┤"
         },
         {
+            "type": "command",
+            "key": "  󱄄",
+            "keyColor": "green",
+            "text": "hostname"
+        },
+        {
             "type": "localip",
             "compact": true,
+            "keyColor": "green",
             "key": "  󱄄"
         },
         {
