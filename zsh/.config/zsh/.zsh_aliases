@@ -13,25 +13,39 @@ alias c="clear"
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~ General Tools ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-alias cp="cp -i"
-alias mv="mv -i"
+alias cp="cp -iv"
+alias mv="mv -iv"
 alias rm="trash -v"
 alias ed="$EDITOR"
 alias mkdir="mkdir -p"
 alias ps="ps auxf"
 alias ping="ping -c 5"
+[ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~ Monitoring Tools ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+# storage usage
 alias df="df -h -x tmpfs -x squashfs -x devtmpfs -x efivarfs"
+
+# speedtest
 alias speedtest="curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python3 -"
-alias mem5="ps auxf | sort -nr -k 4 | head -5"
+
+# processes
 alias cpu5="ps auxf | sort -nr -k 3 | head -5"
+
+# ip related
 #alias ipreset="NIC=$(netstat -r | awk '/default/ {print $NF}' | sort -u | grep -v '^w'); sudo dhclient -r -v $NIC && sudo dhclient -v $NIC"
 alias ipreset="NIC=$(ip link show | grep 'state UP' | awk '{print substr($2,1,length($2)-1)}' | sort -u); sudo dhclient -r -v $NIC && sudo dhclient -v $NIC"
+#alias ipint='ip addr | awk -F' |/' '$5=="inet" && $8!="scope" {print $6}''
+alias ipint="hostname -I"
 alias ipext="curl icanhazip.com"
 alias openports='sudo ss -tulpn'
-alias free="free -m" # show sizes in MB
+
+# memory
+alias free="free -m"                              # show sizes in MB
+alias mem5="ps auxf | sort -nr -k 4 | head -5"
+
+# network
 alias netdev="nmcli device status"
 alias netdns="nmcli dev show | grep DNS"
 
@@ -182,8 +196,10 @@ alias snapdiff="sudo snapper diff"              # list content differences betwe
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~ zypper ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+alias zlr="zypper lr -P"
 alias zs="zypper search"
-alias zsr="zypper search -s --match-exact"
+alias zsr="zypper search -s"
+alias zsrm="zypper search -s --match-exact"
 alias zsp="zypper search-packages"
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~ End aliases ~~~~~~~~~~~~~~~~~~~~~~~~~~
