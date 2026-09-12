@@ -157,9 +157,15 @@ update() {
     draw_line "blue"
     
     # update fresh
+
     print_colored_text "green" "UPDATE FRESH-EDITOR"
-          
+
+    # cd "$HOME/Downloads"
+    # curl -sL $(curl -s https://api.github.com/repos/sinelaw/fresh/releases/latest | grep "browser_download_url.*\.$(uname -m)\.rpm" | cut -d '"' -f 4) -o fresh-editor.rpm && sudo rpm -U fresh-editor.rpm
+    # cd "$HOME"
+
     fresh --cmd update
+    echo "Install with: 'sudo zypper install -y --allow-unsigned-rpm'"
     
     draw_line "blue"
 
