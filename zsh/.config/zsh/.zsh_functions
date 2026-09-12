@@ -142,26 +142,25 @@ update() {
   # if time has passed, execute
   if [[ $DELTA -ge $INTERVAL ]]; then
     
+    # repair flatpak
     print_colored_text "green" "REPAIR FLATPAK"
 
 	  flatpak --user repair
 
     draw_line "blue"
     
+    # update zinit
     print_colored_text "green" "UPDATE ZINIT"
 
     zinit self-update && zinit update
 
     draw_line "blue"
     
+    # update fresh
     print_colored_text "green" "UPDATE FRESH-EDITOR"
+          
+    fresh --cmd update
     
-    cd "$HOME/Downloads"
-    
-    curl -sL $(curl -s https://api.github.com/repos/sinelaw/fresh/releases/latest | grep "browser_download_url.*\.$(uname -m)\.rpm" | cut -d '"' -f 4) -o fresh-editor.rpm && sudo rpm -U fresh-editor.rpm
-    
-    cd "$HOME"
-
     draw_line "blue"
 
     touch $STAMP_FILE
