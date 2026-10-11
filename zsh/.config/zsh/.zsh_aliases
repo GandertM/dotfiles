@@ -172,6 +172,12 @@ alias h="history | grep -i "
 
 alias jctl="sudo journalctl -xb"
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~ LANG ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# set language (LANG) during session
+alias sw_en="export LANG=en_US.UTF-8"
+alias sw_nl="export LANG=nl_NL.UTF-8"
+
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~ ls ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 alias ls="ls -h --color=always --group-directories-first --group --time-style=long-iso"
