@@ -237,9 +237,60 @@ declare global {
 }
 export {};
 
+// ── live_sessions ─────────────────────
+/**
+* Keeps the orchestrator dock's "External sessions" group current: Claude and Codex
+* sessions open outside this editor's workspaces — another terminal, a
+* background job, the vendor's cloud. Polls each tool's own listing while the
+* dock is open and hands the result to the orchestrator
+* (`setExternalSessions`), which draws the rows and opens them.
+*
+* A separate plugin rather than part of the orchestrator so the sources can be
+* turned off by not loading it, and so the orchestrator's own tests, which load
+* only the orchestrator, never see this machine's real sessions.
+*
+* Parsing and "what opening a row means" live in `lib/live_sessions.ts`.
+*/
+import { type LiveSession, type LiveSource } from "./lib/live_sessions.ts";
+export interface LiveSessionsApi {
+	/** Re-list now, cloud included. Resolves once the dock has the answer. */
+	refresh(): Promise<void>;
+	/** The last answer, for a dock opened after it was pushed. */
+	snapshot(): {
+		sessions: LiveSession[];
+		problems: string[];
+		/** The same problems, by the source that had them. */
+		problemsBySource: Partial<Record<LiveSource, string>>;
+		commands: {
+			claude: string;
+			codex: string;
+		};
+	};
+	/** Whether the Claude cloud source is on. */
+	claudeCloudEnabled(): boolean;
+	/** Turn it on or off: saved to the user's config (as the Settings UI
+	*  would), then re-listed, so the dock's Menu can own the setting. */
+	setClaudeCloud(on: boolean): Promise<void>;
+}
+declare global {
+	interface FreshPluginRegistry {
+		"live-sessions": LiveSessionsApi;
+	}
+}
+
 // ── orchestrator ─────────────────────
 import { type DiscoveryHost } from "./lib/discovery.ts";
+import { type LiveSession } from "./lib/live_sessions.ts";
 type AgentState = "working" | "blocked" | "done" | "idle" | "unknown";
+interface ExternalUpdate {
+	sessions: LiveSession[];
+	problems: string[];
+	problemsBySource?: Partial<Record<LiveSession["source"], string>>;
+	commands?: {
+		claude?: string;
+		codex?: string;
+	};
+}
 interface StateExplanation {
 	state: AgentState;
 	reasons: string[];
@@ -440,6 +491,10 @@ export type DockFilterOptions = {
 	scope?: "current" | "all";
 };
 export type OrchestratorApi = DiscoveryHost & {
+	/** Replace the dock's external sessions group: Claude/Codex sessions open outside
+	*  this editor, as `live_sessions.ts` lists them. `commands` are the CLI
+	*  programs it ran, so opening a row attaches with the same ones. */
+	setExternalSessions(update: ExternalUpdate): void;
 	/** Launch a coding agent in THIS workspace — the headless twin of the
 	*  "Run Agent…" dialog. By default resolves once the launch has been seen
 	*  to come up (its terminal produced output within `readyTimeoutMs`);
