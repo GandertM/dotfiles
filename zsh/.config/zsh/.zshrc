@@ -92,17 +92,20 @@ bindkey '^[r' redo                    # redo with alt+r
 
 # ~~~~~~~~~~~~~~~~~~~~~~ History Configuration ~~~~~~~~~~~~~~~~~~~~~~~~~~
  
+HISTFILE="$ZDOTDIR/.zsh_history"
 HISTSIZE=25000
-HISTFILE=$ZDOTDIR/.zsh_history
-SAVEHIST=$HISTSIZE
-HISTDUP=erase
-setopt appendhistory
-setopt sharehistory
-setopt hist_ignore_space
-setopt hist_ignore_all_dups
-setopt hist_save_no_dups
-setopt hist_ignore_dups
-setopt hist_find_no_dups
+SAVEHIST=25000
+
+setopt extended_history       
+setopt share_history          
+setopt hist_fcntl_lock        
+setopt hist_ignore_all_dups   
+setopt hist_save_no_dups      
+setopt hist_expire_dups_first 
+setopt hist_find_no_dups      
+setopt hist_ignore_space      
+setopt hist_reduce_blanks     
+setopt hist_verify            
 
 # ~~~~~~~~~~~~~~~~~~~~~~ Conmpletion Configuration ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
