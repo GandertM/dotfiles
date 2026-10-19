@@ -2,14 +2,18 @@
 
 # ~~~~~~~~~~~~~~~~~~~~~~ Globbing ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-setopt extended_glob null_glob
+#setopt extended_glob null_glob
+setopt extended_glob
 
 # ~~~~~~~~~~~~~~~~~~~~~~ Path Configuration ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Remove duplicates in and non-existing from PATH
+typeset -aU path       # deduplicate
 
 path_prepend() {
   local dir="$1"
   [[ -d "$dir" ]] || return 0     # skip if non-existing
-  path=("$dir" "$path")
+  path=("$dir" $path)
 }
 
 path_append() {
@@ -20,9 +24,6 @@ path_append() {
 
 path_append  "$HOME/bin"
 path_append  "$HOME/projects"
-
-# Remove duplicates in and non-existing from PATH
-typeset -aU path       # deduplicate
 
 # Export the PATH variable to make it available to child processes
 export PATH
@@ -35,60 +36,6 @@ export VISUAL="/usr/bin/codium"
 
 # Set my man pages
 export MAN_POSIXLY_CORRECT=1
-
-# ~~~~~~~~~~~~~~~~~~~~~~ Zinit Configuration ~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-# Set the directory we want to store zinit and plugins
-ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
-
-# Download Zinit, if it's not there yet
-if [[ ! -d "$ZINIT_HOME" ]]; then
-    mkdir -p "$(dirname $ZINIT_HOME)"
-    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
-fi
-
-# Source/Load zinit
-if [[ -r "${ZINIT_HOME}/zinit.zsh" ]]; then
-    source "${ZINIT_HOME}/zinit.zsh"
-fi
-
-# Add in zsh plugins
-if (( ${+functions[zinit]} )); then
-    zinit light zsh-users/zsh-syntax-highlighting
-    zinit light zsh-users/zsh-completions
-    zinit light zsh-users/zsh-autosuggestions
-    zinit light Aloxaf/fzf-tab
-fi
-
-# Add in snippets (including aliases)
-if (( ${+functions[zinit]} )); then
-    zinit snippet OMZP::git
-    zinit snippet OMZP::sudo
-    zinit snippet OMZP::colored-man-pages
-    zinit snippet OMZP::command-not-found
-fi
-
-# Load completions
-autoload -Uz compinit && compinit
-
-if (( ${+functions[zinit]} )); then
-    zinit cdreplay -q
-fi
-
-# ~~~~~~~~~~~~~~~~~~~~~~ Key Bindings ~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-bindkey -e                            # emacs keybindings
-
-bindkey '^p' history-search-backward  # ctrl-p : search history backward (p = previous)
-bindkey '^n' history-search-forward   # ctrl-n : search history forward (n = next)
-
-#bindkey '^[w' kill-region             # alt-w  : kill from the cursor to the mark
-
-bindkey '^[[1;5C' forward-word        # moving between words with CTRL+left
-bindkey '^[[1;5D' backward-word       # moving between words with CTRL+right
-
-bindkey '^[u' undo                    # undo with alt+u
-bindkey '^[r' redo                    # redo with alt+r
 
 # ~~~~~~~~~~~~~~~~~~~~~~ History Configuration ~~~~~~~~~~~~~~~~~~~~~~~~~~
  
@@ -105,7 +52,77 @@ setopt hist_expire_dups_first
 setopt hist_find_no_dups      
 setopt hist_ignore_space      
 setopt hist_reduce_blanks     
-setopt hist_verify            
+setopt hist_verify         
+
+# Do not save lines with runs of escaped spaces (broken completions)
+zshaddhistory() {
+    [[ "$1" != *'\ \ \ '* ]]
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~ Zinit Configuration ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Set the directory we want to store zinit and plugins
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+
+# Download Zinit, if it's not there yet
+if [[ ! -d "$ZINIT_HOME" ]]; then
+    #mkdir -p "$(dirname $ZINIT_HOME)"
+    mkdir -p "${ZINIT_HOME:h}"
+    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+fi
+
+# Source/Load zinit
+if [[ -r "${ZINIT_HOME}/zinit.zsh" ]]; then
+    source "${ZINIT_HOME}/zinit.zsh"
+fi
+
+# Completion definitions must be on fpath before compinit
+if (( ${+functions[zinit]} )); then
+    zinit light zsh-users/zsh-completions
+fi
+
+# Add in snippets (including aliases)
+if (( ${+functions[zinit]} )); then
+    zinit snippet OMZP::git
+    zinit snippet OMZP::sudo
+    zinit snippet OMZP::colored-man-pages
+    zinit snippet OMZP::command-not-found
+fi
+
+# Load completions; keep the dump file in the cache dir instead of $ZDOTDIR
+ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+[[ -d "$ZSH_CACHE_DIR" ]] || mkdir -p "$ZSH_CACHE_DIR"
+autoload -Uz compinit && compinit -d "$ZSH_CACHE_DIR/zcompdump"
+
+if (( ${+functions[zinit]} )); then
+    zinit cdreplay -q
+fi
+
+# Plugins that wrap widgets: fzf-tab after compinit, syntax-highlighting LAST
+if (( ${+functions[zinit]} )); then
+    zinit light Aloxaf/fzf-tab
+    zinit light zsh-users/zsh-autosuggestions
+    zinit light zsh-users/zsh-syntax-highlighting
+fi
+
+# ~~~~~~~~~~~~~~~~~~~~~~ Key Bindings ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+bindkey -e                            # emacs keybindings
+
+# Search history for lines starting with what is already typed
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey '^p' up-line-or-beginning-search    # ctrl-p : previous matching command
+bindkey '^n' down-line-or-beginning-search  # ctrl-n : next matching command
+
+#bindkey '^[w' kill-region             # alt-w  : kill from the cursor to the mark
+
+bindkey '^[[1;5C' forward-word        # moving between words with CTRL+right
+bindkey '^[[1;5D' backward-word       # moving between words with CTRL+left
+
+bindkey '^[u' undo                    # undo with alt+u
+bindkey '^[r' redo                    # redo with alt+r
 
 # ~~~~~~~~~~~~~~~~~~~~~~ Conmpletion Configuration ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -124,48 +141,56 @@ fi
 # ~~~~~~~~~~~~~~~~~~~~~~ Colour Configuration ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # change of default colours (green en red) to (blue and red)
+typeset -gA ZSH_HIGHLIGHT_STYLES
 ZSH_HIGHLIGHT_STYLES[suffix-alias]=fg=blue,underline
 ZSH_HIGHLIGHT_STYLES[precommand]=fg=blue,underline
 ZSH_HIGHLIGHT_STYLES[arg0]=fg=blue
 
-# ~~~~~~~~~~~~~~~~~~~~~~ Sourcing Configuration ~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ~~~~~~~~~~~~~~~~~~~~~~ Aliases and Functions ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# Fastfetch
-if command -v fastfetch >/dev/null 2>&1; then
-    fastfetch
+# Load once at startup (not on every prompt)
+[[ -r "$ZDOTDIR/.zsh_aliases" ]]   && source "$ZDOTDIR/.zsh_aliases"
+[[ -r "$ZDOTDIR/.zsh_functions" ]] && source "$ZDOTDIR/.zsh_functions"
+
+# ~~~~~~~~~~~~~~~~~~~~~~ Startup Output ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Only show banners in a top-level shell, not in sub-shells
+if [[ $SHLVL -eq 1 ]]; then
+
+    # Fastfetch
+    if command -v fastfetch >/dev/null 2>&1; then
+        fastfetch
+    fi
+
+    # Fzf - reminder
+    if command -v fzf >/dev/null 2>&1; then
+        echo ''
+        echo '---------------------------------------------------'
+        echo ' Key-bindings for fzf '
+        echo '---------------------------------------------------'
+        echo ' ALT-c  - cd into the selected directory '
+        echo ' CTRL-t - Paste the selected files and directories '
+        echo ' CTRL-r - Paste the selected command from history '
+        echo '---------------------------------------------------'
+    fi
 fi
+
+# ~~~~~~~~~~~~~~~~~~~~~~ Sourcing Configuration ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Starship
 if command -v starship >/dev/null 2>&1; then
     eval "$(starship init zsh)"
-fi    
-
-# Fzf - reminder
-if command -v fzf >/dev/null 2>&1; then
-    echo ''
-    echo '---------------------------------------------------'
-    echo ' Key-bindings for fzf '
-    echo '---------------------------------------------------'
-    echo ' ALT-c  - cd into the selected directory '
-    echo ' CTRL-t - Paste the selected files and directories '
-    echo ' CTRL-r - Paste the selected command from history '
-    echo '---------------------------------------------------'
 fi
 
-# Shell integrations
+# Fzf key bindings and completion
 if command -v fzf >/dev/null 2>&1; then
     eval "$(fzf --zsh)"             # option --zsh only works in 0.48.0 or later (add fzf to PATH)
 fi
 
+# Zoxide must be initialised last
 if command -v zoxide >/dev/null 2>&1; then
     eval "$(zoxide init --cmd cd zsh)"       # integrate zoxide into cd
 fi
-
-# Source aliases and functions for every new prompt or after every command
-precmd() {
-    [[ -f "$ZDOTDIR"/.zsh_aliases ]] && source "$ZDOTDIR"/.zsh_aliases
-    [[ -f "$ZDOTDIR"/.zsh_functions ]] && source "$ZDOTDIR"/.zsh_functions
-}
 
 # ~~~~~~~~~~~~~~~~~~~~~~ End Configuration ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
